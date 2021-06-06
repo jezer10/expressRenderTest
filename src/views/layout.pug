@@ -1,3 +1,4 @@
+include variables.pug
 doctype html
 html(lang="en")
     head
@@ -7,3 +8,8 @@ html(lang="en")
         title Layout
         link(rel="stylesheet" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css")
     body
+        block nav
+        block sidebar
+        .container.mx-auto.px-6
+            block content
+        block footer
