@@ -3,7 +3,8 @@ const cors = require('cors')
 const morgan = require('morgan')
 const path = require('path')
 const app = express();
-const productRoutes = require('./routes/productRoutes')
+const productRoutes = require('./routes/api/products')
+const userRoutes = require('./routes/api/users')
 
 //app.engine("jsx",path.join(__dirname,"jsxFormat.js"))
 
@@ -20,6 +21,6 @@ app.get('/', (req, res) => {
     res.render('index', { hello: 'Hola', world: 'Mundo',symbol: '!' })
 })
 
-app.use('/products', productRoutes)
-
+app.use('/api/v1/products',productRoutes)
+app.use('/api/v1/users',userRoutes)
 module.exports = app;
