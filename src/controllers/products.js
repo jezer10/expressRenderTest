@@ -2,7 +2,7 @@ const pool = require('../database')
 
 const productController = {}
 
-productController.getAllProducts = async (req, res, next) => {
+productController.getProducts = async (req, res, next) => {
     try {
         const response = await pool.query('select * from product')
         return res.status(200).json(response.rows)
