@@ -5,6 +5,7 @@ const path = require('path')
 const app = express();
 const productRoutes = require('./routes/api/products')
 const userRoutes = require('./routes/api/users')
+const authRoutes = require('./routes/api/auth')
 
 //app.engine("jsx",path.join(__dirname,"jsxFormat.js"))
 
@@ -18,9 +19,9 @@ app.set('views', path.join(__dirname, "views"))
 
 
 app.get('/', (req, res) => {
-    res.render('index', { hello: 'Hola', world: 'Mundo',symbol: '!' })
+    res.render('index', { hello: 'Hola', world: 'Mundo', symbol: '!' })
 })
-
-app.use('/api/v1/products',productRoutes)
-app.use('/api/v1/users',userRoutes)
+app.use('/auth', authRoutes)
+app.use('/api/v1/products', productRoutes)
+app.use('/api/v1/users', userRoutes)
 module.exports = app;

@@ -69,6 +69,25 @@ class usersService {
             console.log(chalk.red(error))
         }
     }
+
+    async hasUsername({ }) {
+
+    }
+
+    async hasUser({ username, password }) {
+        try {
+            const response = await p.query('select * from usertab where username=$1', [username])
+            if (response.rows.length === 1) {
+                const encryptedPassword = response.rows[0]['password']
+                const exists = encrypt.comparePassword(password, encryptedPassword)
+                return exists
+            }
+            return false;
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 module.exports = usersService;

@@ -34,10 +34,10 @@ productController.createProduct = async (req, res) => {
     try {
         const product = req.body;
         const response = await productService.createProduct(product)
-        if (response===1){
-            res.status(201).json({status:201,msg:'created',data:product})
+        if (response === 1) {
+            res.status(201).json({ status: 201, msg: 'created', data: product })
         }
-        
+
     } catch (error) {
         console.log(chalk.red(error))
         return res.status(201).json('Internal Server error');
@@ -51,8 +51,8 @@ productController.updateProduct = async (req, res) => {
         const idproduct = req.params.id
         const product = { idproduct, name, stock, price }
         const response = await productService.updateProduct(product)
-        if(response===1){
-            return res.status(200).json({status:200,msg:'updated'})
+        if (response === 1) {
+            return res.status(200).json({ status: 200, msg: 'updated' })
         }
 
     } catch (error) {
@@ -66,11 +66,11 @@ productController.deleteProduct = async (req, res) => {
         const idproduct = req.params.id
         const response = await productService.deleteProduct(idproduct)
 
-        if(response===1){
-            return res.status(200).json({status:200,msg:'deleted'})
+        if (response === 1) {
+            return res.status(200).json({ status: 200, msg: 'deleted' })
         }
-        else if(response===0){
-            return res.status(404).json({status:404,msg:'The register does not exists'})
+        else if (response === 0) {
+            return res.status(404).json({ status: 404, msg: 'The register does not exists' })
 
         }
 
@@ -80,4 +80,5 @@ productController.deleteProduct = async (req, res) => {
         return res.status(500).json('Internal Server error');
     }
 }
+
 module.exports = productController;

@@ -54,4 +54,15 @@ userController.deleteUser = async (req, res) => {
 
 }
 
+userController.hasUser = async (req, res) => {
+    try {
+        const { username, password } = req.body
+        const response = await userService.hasUser({username,password})
+        res.status(200).json({msg: response ? 'Existe' : 'No existe'})
+    } catch (error) {
+        console.log(error)
+        res.status(500).json('Internal server error')
+    }
+}
+
 module.exports = userController
