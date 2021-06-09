@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const { token } = require('morgan');
 const router = require('express').Router();
 
+require('../../utils/auth/basic')
 router.post('/token',async (req,res,next)=>{
     passport.authenticate("basic",(error,user)=>{
         try {
@@ -21,9 +22,9 @@ router.post('/token',async (req,res,next)=>{
             })
             return res.status(200).json(token);
         } catch (error) {
-
+            next(error)
         }
-    })
+    })(req,res,next)
 })
 
 module.exports=router;

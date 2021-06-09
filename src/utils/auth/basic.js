@@ -8,13 +8,15 @@ passport.use(
         async (username, password, next) => {
             try {
 
-                if(!userService.hasUser({username,password})){
-
+                if(!(await userService.hasUser({username,password}))){
+                    return next(boom.unauthorized,false)
                 }
+
+                return next(null,username)
 
 
             } catch (error) {
-                return cb(error)
+                return next(error)
             }
         }
     )
