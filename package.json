@@ -6,10 +6,10 @@
   "scripts": {
     "start": "node src",
     "dev": "nodemon src",
-    "dev:debug":"set DEBUG=express:*,app:* & npm run dev",
+    "dev:debug": "set DEBUG=express:*,app:* & npm run dev",
     "test": "",
     "test:coverage": "nyc npm run test",
-    "debug":"set DEBUG=express:*,app=* & npm run start"
+    "debug": "set DEBUG=express:*,app=* & npm run start"
   },
   "keywords": [],
   "author": "",
@@ -34,8 +34,12 @@
     "nodemon": "^2.0.7",
     "nyc": "^15.1.0"
   },
-  "nyc":{
+  "nyc": {
     "all": true,
-    "include": ["routes", "services", "utils"]
+    "include": [
+      "routes",
+      "services",
+      "utils"
+    ]
   }
 }
