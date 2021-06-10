@@ -5,26 +5,28 @@ const { token } = require('morgan');
 const router = require('express').Router();
 
 require('../../utils/auth/basic')
-router.post('/token',async (req,res,next)=>{
-    passport.authenticate("basic",(error,user)=>{
+router.post('/token', async (req, res, next) => {
+    passport.authenticate("basic", (error, user) => {
         try {
-            if(error||!user){
+            if (error || !user) {
                 next(boom.unauthorized());
             }
-            req.login(user,{session:false},async (error,user)=>{
-                if(error){
+            console.log(user)
+            req.login(user, { session: false }, async (error) => {
+                if (error) {
                     next(error)
                 }
-                const payload ={sub:user}
-                const token=jwt.sign(payload,process.env.JWT_TOKEN_SECRET,{
-                    expiresIn:"15m"
+
+                const payload = { sub: user.username }
+                const token = jwt.sign(payload, process.env.JWT_TOKEN_SECRET, {
+                    expiresIn: "15m"
                 })
+                return res.status(200).json({ "token": token });
             })
-            return res.status(200).json(token);
         } catch (error) {
             next(error)
         }
-    })(req,res,next)
+    })(req, res, next)
 })
 
-module.exports=router;
+module.exports = router;

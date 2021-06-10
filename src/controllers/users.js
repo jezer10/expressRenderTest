@@ -4,10 +4,10 @@ const userService = new usersService;
 
 const userController = {}
 
-userController.getUser = async (req, res) => {
+userController.getUserById = async (req, res) => {
     try {
         const iduser = req.params.id
-        const response = await userService.getUser(iduser);
+        const response = await userService.getUserByUserId(iduser);
         return res.status(200).json(response);
     } catch (error) {
         console.log(error)

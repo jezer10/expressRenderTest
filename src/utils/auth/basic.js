@@ -12,7 +12,7 @@ passport.use(
                     return next(boom.unauthorized,false)
                 }
 
-                return next(null,username)
+                return next(null,{username})
 
 
             } catch (error) {

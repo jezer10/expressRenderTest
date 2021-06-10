@@ -9,7 +9,7 @@ class usersService {
 
     }
 
-    async getUser(userId) {
+    async getUserByUserId(userId) {
         try {
             const res = await p.query('select * from users where iduser=$1', [userId])
             return res.rows[0];
@@ -17,6 +17,18 @@ class usersService {
             console.log(chalk.red.italic(error))
         }
 
+    }
+
+    async getUserByUsername(username){
+        try {
+            const res= await p.query('select * from users where username=$1',[username])
+            if (res.rows.length===1){
+                return res.rows[0]
+            } 
+            
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async getUsers() {
@@ -40,7 +52,7 @@ class usersService {
             return response.rowCount;
         } catch (error) {
             console.log(chalk.red(error))
-
+            throw new Error(error)
         }
     }
 
@@ -70,17 +82,28 @@ class usersService {
         }
     }
 
-    async hasUsername({ }) {
+    async hasUsername({ username }) {
+        try {
+
+            const response = await p.query('select * from users where username=$1', [username])
+            if (response.rows.length === 1) {
+                return true
+            }
+            return false
+
+        } catch (error) {
+            console.log(error)
+            return error
+        }
 
     }
 
     async hasUser({ username, password }) {
         try {
             const response = await p.query('select * from users where username=$1', [username])
-            console.log(response.rows.length)
             if (response.rows.length === 1) {
                 const encryptedPassword = response.rows[0]['password']
-                
+
                 const exists = await encrypt.comparePassword(password, encryptedPassword)
                 return exists
             }

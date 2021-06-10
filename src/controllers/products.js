@@ -13,6 +13,7 @@ productController.getProducts = async (req, res) => {
     try {
         const products = await productService.getProducts(tags)
         res.status(200).json(products)
+        console.log(products)
     } catch (error) {
         console.log(chalk(error))
         return res.status(500).json('Internal Server error');
