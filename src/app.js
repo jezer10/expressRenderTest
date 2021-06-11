@@ -6,6 +6,7 @@ const app = express();
 const productRoutes = require('./routes/api/products')
 const userRoutes = require('./routes/api/users')
 const authRoutes = require('./routes/api/auth')
+const {notFound}= require('./utils/middleware')
 
 //app.engine("jsx",path.join(__dirname,"jsxFormat.js"))
 
@@ -24,4 +25,6 @@ app.get('/', (req, res) => {
 app.use('/auth', authRoutes)
 app.use('/api/v1/products', productRoutes)
 app.use('/api/v1/users', userRoutes)
+
+app.use('*',notFound)
 module.exports = app;
